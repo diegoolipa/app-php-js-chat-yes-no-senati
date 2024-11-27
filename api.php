@@ -1,5 +1,5 @@
 <?php
-
+//aqui
 header("Access-Control-Allow-Origin: *");
 
 $metodo = $_SERVER['REQUEST_METHOD'];
