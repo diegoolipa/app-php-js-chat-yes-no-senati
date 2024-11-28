@@ -57,11 +57,7 @@ async function getYesNoData() {
       }
     );
     const data = await respuesta.json();
-    console.log('Aqui llega la información');
-    console.log(data);
     agregarMensaje(data.answer,false,data.image);
-
-
   } catch (error) {
     console.log("Error al momento de hacer la peticion GET: ", error);
   }
@@ -102,7 +98,7 @@ chatForm.addEventListener('submit',function(e){
 
   const miMensaje = messageInput.value;
   agregarMensaje(miMensaje,true);
-  
   getYesNoData();
+  messageInput.value = '';
 });
 
