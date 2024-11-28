@@ -31,7 +31,7 @@ async function postData() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nombre: "Diego",
+        nombre: "Diego Frank",
         apellido: "Lipa",
         lenguaje_favorito: "JavaScript",
         color: "Plomo",
@@ -57,7 +57,10 @@ async function getYesNoData() {
       }
     );
     const data = await respuesta.json();
+    console.log('Aqui llega la información');
     console.log(data);
+    agregarMensaje(data.answer,false,data.image);
+
 
   } catch (error) {
     console.log("Error al momento de hacer la peticion GET: ", error);
@@ -68,3 +71,38 @@ let botonGetYesNo = document.querySelector("#yes-no-data");
 botonGetYesNo.addEventListener("click", function () {
     getYesNoData();
 });
+
+
+// Funcionalidad del chat yes no
+let chatMessages = document.getElementById('chatMessages'); 
+let chatForm = document.getElementById('chatForm');
+let messageInput = document.getElementById('messageInput');
+
+function agregarMensaje(mensaje, soyYo = true, imagen = null){
+  const mensajeDiv = document.createElement('div');
+  mensajeDiv.classList.add('message');
+  mensajeDiv.classList.add(soyYo? 'user-message':'api-message');
+  mensajeDiv.textContent = mensaje;
+
+  if(imagen){
+    const img = document.createElement('img');
+    img.src = imagen;
+    mensajeDiv.appendChild(img);
+  }
+
+  setTimeout(() => {
+    chatMessages.scrollTop = chatMessages.scrollHeight
+  }, 500);
+
+  chatMessages.appendChild(mensajeDiv);
+}
+
+chatForm.addEventListener('submit',function(e){
+  e.preventDefault();
+
+  const miMensaje = messageInput.value;
+  agregarMensaje(miMensaje,true);
+  
+  getYesNoData();
+});
+
